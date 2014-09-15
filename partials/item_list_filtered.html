@@ -1,0 +1,48 @@
+<?php
+require_once('../admin/config.php');
+require_once('../admin/db_connect.php');
+?>
+<div class="template">
+  <h1 style="text-align:left">Filtered Item list</h1>
+  
+  <table class="table table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Category</th>
+      <th>Quantity available</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr class="item-row">
+        <?php
+        $i = 0;
+		$items = array();
+		$sql = "SELECT * FROM items";
+		$query = mysqli_query($mysqli, $sql);
+
+		if(mysqli_num_rows($query) > 0)
+		{
+			while($result = mysqli_fetch_array($query))
+		{
+			$items[$i] = $result;
+			$i++;
+		}
+		}
+		$i = 0;
+		
+		for($a=0;$a<count($items);$a++){
+			
+			for($b=2;$b<6;$b++){
+				?><td><?php
+				echo $items[$a][$b]; 
+				?></td><?php
+			}
+			$a++;
+		}
+        ?>
+      </tr>
+    </tbody>
+  </table>
+</div>
